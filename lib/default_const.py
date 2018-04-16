@@ -9,7 +9,7 @@ alpha = 0.1
 beta  = 0.05   
 
 ### SNR (signal-to-noise)
-gamma = 0.50   
+gamma = 0.30   
 
 ### harmonic component
 A1    = 1.0  # amplitude

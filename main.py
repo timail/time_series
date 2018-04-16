@@ -15,7 +15,14 @@ from lib import func
 from lib import default_const as data
 
 
-import conf
+import fnames
+
+
+def gen_number():
+    n = 0
+    while True:
+        yield n
+        yield n + 1 
 
 
 
@@ -38,7 +45,7 @@ def main():
         color = 'black',
     )
 
-    plot_raw_series.savefig(conf.IMG_DIR + '01_raw_series')
+    plot_raw_series.savefig(fnames.plot('raw_series'))
 
     graph.clf()
 
@@ -67,7 +74,7 @@ def main():
         color = 'black',
     )
 
-    plot_centred_series.savefig(conf.IMG_DIR + '02_centred_series')
+    plot_centred_series.savefig(fnames.plot('centred_series'))
 
     graph.clf()
 
@@ -117,7 +124,7 @@ def main():
 
     graph.legend()
 
-    plot_periodogram.savefig(conf.IMG_DIR + '03_periodogram')
+    plot_periodogram.savefig(fnames.plot('periodogram'))
 
     graph.clf()
 
@@ -153,7 +160,7 @@ from lib import func
 from lib import default_const as data
 
 
-import conf
+import fnames
 
 
 
@@ -176,7 +183,7 @@ def main():
         color = 'black',
     )
 
-    plot_raw_series.savefig(conf.IMG_DIR + '01_raw_series')
+    plot_raw_series.savefig(fnames.plot('raw_series'))
 
     graph.clf()
 
@@ -205,7 +212,7 @@ def main():
         color = 'black',
     )
 
-    plot_centred_series.savefig(conf.IMG_DIR + '02_centred_series')
+    plot_centred_series.savefig(fnames.plot('centred_series'))
 
     graph.clf()
 
@@ -255,7 +262,7 @@ def main():
 
     graph.legend()
 
-    plot_periodogram.savefig(conf.IMG_DIR + '03_periodogram')
+    plot_periodogram.savefig(fnames.plot('periodogram'))
 
     graph.clf()
 
@@ -276,7 +283,7 @@ def main():
         color = 'black',
     )
 
-    plot_correlogram.savefig(conf.IMG_DIR + '04_correlogram')
+    plot_correlogram.savefig(fnames.plot('correlogram'))
 
     graph.clf()
 
@@ -294,11 +301,11 @@ def main():
 
 ### computing smoothed correloram
     
-    fffttt = Fourier(C_m)
+    FFT_corr_w = Fourier(C_m)
 
     C_0 = C_m[0]
 
-    D_j = np.array([2 * fffttt[j].real - C_0 for j in range(N1)])
+    D_j = np.array([2 * x.real - C_0 for x in FFT_corr_w])
 
     D_j /= N_Tukey
 
@@ -316,7 +323,7 @@ def main():
         color = 'black',
     )
 
-    plot_smooth_period.savefig(conf.IMG_DIR + '05_smoothed_periodogram')
+    plot_smooth_period.savefig(fnames.plot('smoothed_periodogram'))
 
     graph.clf()
 
