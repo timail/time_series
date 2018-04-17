@@ -276,7 +276,6 @@ def main():
         color = 'black',
     )
 
-
     plot_smooth_period.savefig(fnames.plot('smoothed_periodogram'))
 
     graph.clf()
