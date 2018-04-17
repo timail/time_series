@@ -1,7 +1,7 @@
 **СКАВРя** по методичке _В.В.Витязева_
 
 Spectral Correlation Analysis of Time Series. 
-(according to training manual by V.V.Vityazev)
+(according to training manual by _V.V.Vityazev_)
 
 ---
 
@@ -13,9 +13,11 @@ Spectral Correlation Analysis of Time Series.
 - conf.py --- _параметры окна Тьюки_
 - func.py --- _функция, генерирующая ряд_
 - default_const.py --- _константы для ряда из примера_
+- fnames.py --- правила именования файлов с графиками (в т.ч. директория, по-умолчанию **plots/**)
 
 ---
 Tested on **Python 3.6.4**
+
 Lib dependences:
 - numpy;
 - matplotlib.
