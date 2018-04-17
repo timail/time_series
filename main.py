@@ -251,7 +251,7 @@ def main():
     D_smooth /= N_Tukey
 
 
-### plotting smoothed correlogram
+### plotting smoothed periodogram
 
     plot_smooth_period = graph.figure()
     
