@@ -189,6 +189,13 @@ def main():
         color = 'black',
     )
 
+    graph.text(
+        0,
+        0,
+        "a = " + str(a_Tukey) +"\n" + 
+        "N* = " + str(N_Tukey),
+    )
+
     plot_smooth_period.savefig(fnames.plot('smoothed_periodogram'))
 
     graph.clf()
