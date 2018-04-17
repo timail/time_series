@@ -57,7 +57,7 @@ def main():
 ### plotting the time series
 
     plot_raw_series = graph.figure()
-    graph.title('Time series (raw)', fontsize=12)
+    graph.suptitle('Time series (raw)', fontsize=12)
 
     graph.xlabel('Time, (sec)')
 
@@ -88,7 +88,7 @@ def main():
 ### plotting the centred series
 
     plot_centred_series = graph.figure()
-    graph.title('Time series (centred)', fontsize=12)
+    graph.suptitle('Time series (centred)', fontsize=12)
 
     graph.xlabel('Time, (sec)')
 
@@ -129,7 +129,7 @@ def main():
 ### plotting the periodogram and detection treshold
 
     plot_periodogram = graph.figure()
-    graph.title('Periodogram', fontsize=12)
+    graph.suptitle('Periodogram', fontsize=12)
 
     graph.xlabel('Frequency, (Hz)')
 
@@ -162,7 +162,7 @@ def main():
 ### plotting the correlogram
     
     plot_correlogram = graph.figure()
-    graph.title('Correlogram', fontsize=12)
+    graph.suptitle('Correlogram', fontsize=12)
 
     graph.xlabel('Time, (sec)')
 
