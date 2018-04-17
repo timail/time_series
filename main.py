@@ -21,6 +21,8 @@ from lib import fnames
 from lib.conf import(
     a_Tukey,
     N_Tukey,
+    
+    N_ratio,
 )
 
 
@@ -179,7 +181,19 @@ def main():
 ### plotting smoothed correlogram
 
     plot_smooth_period = graph.figure()
-    graph.title('Smoothed periodogram', fontsize=12)
+    
+    graph.suptitle(
+        'Smoothed periodogram', 
+        fontsize=12,
+    )
+
+    graph.title(
+        "Tukey window parameters: "
+        "a = " + str(a_Tukey) + ", " + 
+        "N* = " + str(N_ratio) +"N",
+
+        fontsize=8,
+    )
 
     graph.xlabel('Frequency, (Hz)')
 
@@ -189,12 +203,6 @@ def main():
         color = 'black',
     )
 
-    graph.text(
-        0,
-        0,
-        "a = " + str(a_Tukey) +"\n" + 
-        "N* = " + str(N_Tukey),
-    )
 
     plot_smooth_period.savefig(fnames.plot('smoothed_periodogram'))
 
