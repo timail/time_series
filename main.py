@@ -30,7 +30,7 @@ from lib import func
 from lib import default_const as data
 
 
-import fnames
+from lib import fnames
 
 
 
