@@ -1,6 +1,23 @@
 #!/usr/bin/env python3
 # UTF-8, *nix
 
+### СКАВРя
+
+### 
+#
+# Tim Danilov
+# timail69@gmail.com
+# t.me/timail
+#
+# SPbSU,
+# Mathematics and Mechanics faculty,
+# Department of Astronomy.
+#
+# April, 2018
+# 
+####
+
+
 import numpy as np
 
 from numpy.fft import rfft  as Fourier
@@ -21,9 +38,12 @@ from lib import fnames
 from lib.conf import(
     a_Tukey,
     N_Tukey,
-    
+
     N_ratio,
 )
+
+
+EXTRA_PLOTS = False
 
 
 def main():
@@ -85,7 +105,7 @@ def main():
 
 ### calculation of the periodogram 
 
-    # adding zeros to series
+    # adding zeros to series (for FFT)
     N1 = int(2 ** (np.ceil(np.log2(data.N))))
     N2 = N1 * 2
 
@@ -167,6 +187,59 @@ def main():
     # adding zeros to fit N2 size
     zeros = np.zeros (N2 - (N_Tukey + 1))
     corr_weighted = np.concatenate((corr_weighted, zeros), axis=0)
+
+    if EXTRA_PLOTS:
+        plot_extra = graph.figure()
+
+        graph.suptitle(
+            'Cut correlogram', 
+            fontsize=12,
+        )
+
+        graph.title(
+            "Tukey window parameters: "
+            "a = " + str(a_Tukey) + ", " + 
+            "N* = " + str(N_ratio) +"N",
+
+            fontsize=8,
+        )
+
+        graph.xlabel('Time, (sec)')
+
+        graph.plot(
+            nodes[:N_Tukey], 
+            correlorgam[:N_Tukey],
+            color = 'black',
+        )
+
+        plot_extra.savefig(fnames.plot('cut_correlogram'))
+
+        graph.clf()
+
+
+        graph.suptitle(
+            'Weighted correlogram', 
+            fontsize=12,
+        )
+
+        graph.title(
+            "Tukey window parameters: "
+            "a = " + str(a_Tukey) + ", " + 
+            "N* = " + str(N_ratio) +"N",
+
+            fontsize=8,
+        )
+        graph.xlabel('Time, (sec)')
+
+        graph.plot(
+            nodes[:N_Tukey], 
+            corr_weighted[:N_Tukey],
+            color = 'black',
+        )
+
+        plot_extra.savefig(fnames.plot('weighted_correlogram'))
+
+        graph.clf()
 
 
 ### computing smoothed correloram
