@@ -13,35 +13,27 @@ import matplotlib.pyplot as graph
 from lib import func
 
 from lib import default_const as data
-#!/usr/bin/env python3
-# UTF-8, *nix
-
-import numpy as np
-
-from numpy.fft import rfft  as Fourier
-from numpy.fft import irfft as Fourier_inv
-
-
-import matplotlib.pyplot as graph
-
-
-from lib import func
-
-from lib import default_const as data
 
 
 from lib import fnames
 
 
+from lib.conf import(
+    a_Tukey,
+    N_Tukey,
+)
+
 
 def main():
     
 # getting time series and time nodes
+
     series = func.gen_series()
     nodes = data.nodes
 
 
 ### plotting the time series
+
     plot_raw_series = graph.figure()
     graph.title('Time series (raw)', fontsize=12)
 
@@ -59,6 +51,7 @@ def main():
 
 
 ### exclusion of the trend, centering the series 
+
     series = series - np.mean(series)
 
     # linear regression
@@ -71,6 +64,7 @@ def main():
     
 
 ### plotting the centred series
+
     plot_centred_series = graph.figure()
     graph.title('Time series (centred)', fontsize=12)
 
@@ -88,7 +82,7 @@ def main():
 
 
 ### calculation of the periodogram 
-    
+
     # adding zeros to series
     N1 = int(2 ** (np.ceil(np.log2(data.N))))
     N2 = N1 * 2
@@ -111,6 +105,7 @@ def main():
     treshold = (sigma_2_null * data.X1) / data.N
 
 ### plotting the periodogram and detection treshold
+
     plot_periodogram = graph.figure()
     graph.title('Periodogram', fontsize=12)
 
@@ -136,10 +131,12 @@ def main():
 
     graph.clf()
 
+
 ### computing the correlogram (with FFT)
     
-    c_m = Fourier_inv(np.array([np.abs(x)**2 for x in X])) / data.N 
-    
+    correlorgam = Fourier_inv(np.array([np.abs(x)**2 for x in X])) / data.N 
+
+
 ### plotting the correlogram
     
     plot_correlogram = graph.figure()
@@ -149,7 +146,7 @@ def main():
 
     graph.plot(
         nodes[:data.N], 
-        c_m[:data.N],
+        correlorgam[:data.N],
         color = 'black',
     )
 
@@ -157,25 +154,26 @@ def main():
 
     graph.clf()
 
+
 ### weighted correlogram
-    
-    N_Tukey = int(0.5 * data.N)
-    a = 0.25 ## Tukey window parameter
 
-    W = lambda m: (1 - 2*a) + 2*a * np.cos(np.pi * m/N_Tukey)
+    # Tukey window (parameters in lib/conf)
+    W = lambda m: (1 - 2*a_Tukey) + 2*a_Tukey * np.cos(np.pi * m/N_Tukey)
 
-    c_m_weighted = np.array([c_m[m] * W(m) for m in range(N_Tukey)])
+    corr_weighted = np.array([correlorgam[m] * W(m) for m in range(N_Tukey)])
 
+    # adding zeros to fit N2 size
     zeros = np.zeros (N2 - (N_Tukey + 1))
-    C_m = np.concatenate((c_m_weighted, zeros), axis=0)
+    corr_weighted = np.concatenate((corr_weighted, zeros), axis=0)
+
 
 ### computing smoothed correloram
     
-    C_0 = C_m[0]
+    C_0 = corr_weighted[0]
 
-    D_j = np.array([2 * x.real - C_0 for x in Fourier(C_m)])
+    D_smooth = np.array([2 * x.real - C_0 for x in Fourier(corr_weighted)])
 
-    D_j /= N_Tukey
+    D_smooth /= N_Tukey
 
 
 ### plotting smoothed correlogram
@@ -187,7 +185,7 @@ def main():
 
     graph.plot(
         freq_nodes, 
-        D_j,
+        D_smooth,
         color = 'black',
     )
 
