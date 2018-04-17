@@ -4,8 +4,10 @@ Spectral Correlation Analysis of Time Series.
 (according to training manual by V.V.Vityazev)
 
 ---
+
 В **main.py** есть константа **EXTRA_PLOTS**. 
 Если ей выставить значение _True_, то программа строит два графика, не указанных в методичке --- график обрезанной по параметрю окна Тьюки N* коррелограммы и график взвешенной коррелограммы. 
+
 ---
 **lib/**
 - conf.py --- _параметры окна Тьюки_
