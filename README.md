@@ -1,7 +1,7 @@
 **СКАВРя** по методичке _В.В.Витязева_
 
-Spectral Correlation Analysis of Time Series. 
-(according to training manual by _V.V.Vityazev_)
+Spectral Correlation Analysis of Time Series 
+(according to training manual by _V.V.Vityazev_).
 
 ---
 
